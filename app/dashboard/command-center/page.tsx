@@ -7,7 +7,7 @@ import { Play, Pause, Globe, Hash, Settings } from 'lucide-react';
 import { usePersonaStore } from '@/lib/store/persona-store';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { Button, PageContainer, PageHeader, Card, Grid } from '@/components/ui';
+import { Button, Card, Grid } from '@/components/ui';
 
 export default function CommandCenterPage() {
   const router = useRouter();
@@ -147,13 +147,11 @@ export default function CommandCenterPage() {
   };
 
   return (
-    <div className="p-6">
-      <PageContainer maxWidth="lg">
-        <PageHeader
-          title="Command Center"
-          description="Launch and manage your Reddit hunt"
-          icon={Settings}
-        />
+    <div className="max-w-6xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Command Center</h1>
+        <p className="text-gray-600 mt-1">Launch and manage your Reddit hunt</p>
+      </div>
 
         {/* Stats Cards */}
         <Grid cols={3} gap="lg" className="mb-6">
@@ -253,7 +251,6 @@ export default function CommandCenterPage() {
             </div>
           </div>
         </Card>
-      </PageContainer>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { BarChart3, RefreshCw, Info, Sparkles, Shield, MessageSquare, TrendingUp
 import { usePersonaStore } from '@/lib/store/persona-store';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { Button, PageContainer, PageHeader, Card, Badge, Grid } from '@/components/ui';
+import { Button, Card, Badge, Grid } from '@/components/ui';
 import { filterGenericSubreddits } from '@/lib/utils/filter-generic';
 
 interface SubredditIntel {
@@ -143,25 +143,23 @@ export default function SubredditIntelligencePage() {
   };
 
   return (
-    <div className="p-6">
-      <PageContainer maxWidth="2xl">
-        <PageHeader
-          title="Subreddit Intelligence"
-          description="Analyze community health, rules, and engagement patterns"
-          icon={BarChart3}
-          action={
-            <div className="flex gap-2">
-              <Button variant="primary">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Subreddit
-              </Button>
-              <Button variant="secondary" onClick={() => loadSubreddits()}>
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Refresh All
-              </Button>
-            </div>
-          }
-        />
+    <div className="max-w-7xl mx-auto">
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Subreddit Intelligence</h1>
+          <p className="text-gray-600 mt-1">Analyze community health, rules, and engagement patterns</p>
+        </div>
+        <div className="flex gap-2">
+          <Button variant="primary">
+            <Plus className="w-4 h-4 mr-2" />
+            Add Subreddit
+          </Button>
+          <Button variant="secondary" onClick={() => loadSubreddits()}>
+            <RefreshCw className="w-4 h-4 mr-2" />
+            Refresh All
+          </Button>
+        </div>
+      </div>
 
         <Grid cols={3} gap="lg">
           {/* Left: Monitored Subreddits */}
@@ -279,7 +277,6 @@ export default function SubredditIntelligencePage() {
             </div>
           )}
         </Grid>
-      </PageContainer>
     </div>
   );
 }

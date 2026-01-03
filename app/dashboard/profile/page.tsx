@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { User, Mail, Calendar, Save, Edit2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { Button, PageContainer, PageHeader, Card, Input, Separator } from '@/components/ui';
+import { Button, Card, Input, Separator } from '@/components/ui';
 
 interface UserProfile {
   id: string;
@@ -91,26 +91,28 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="p-6">
-        <PageContainer>
-          <PageHeader title="Profile" description="Your account information" icon={User} />
-          <Card>
-            <div className="p-8 text-center text-ms-neutralSecondary">Loading profile...</div>
-          </Card>
-        </PageContainer>
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
+          <p className="text-gray-600 mt-1">Your account information</p>
+        </div>
+        <Card>
+          <div className="p-8 text-center text-gray-600">Loading profile...</div>
+        </Card>
       </div>
     );
   }
 
   if (!profile) {
     return (
-      <div className="p-6">
-        <PageContainer>
-          <PageHeader title="Profile" description="Your account information" icon={User} />
-          <Card>
-            <div className="p-8 text-center text-ms-neutralSecondary">Failed to load profile</div>
-          </Card>
-        </PageContainer>
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
+          <p className="text-gray-600 mt-1">Your account information</p>
+        </div>
+        <Card>
+          <div className="p-8 text-center text-gray-600">Failed to load profile</div>
+        </Card>
       </div>
     );
   }
@@ -124,13 +126,11 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="p-6">
-      <PageContainer>
-        <PageHeader
-          title="Profile"
-          description="Manage your account information and preferences"
-          icon={User}
-        />
+    <div className="max-w-7xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
+        <p className="text-gray-600 mt-1">Manage your account information and preferences</p>
+      </div>
 
         <div className="space-y-6">
           {/* Profile Information Card */}
@@ -267,7 +267,6 @@ export default function ProfilePage() {
             </div>
           </Card>
         </div>
-      </PageContainer>
     </div>
   );
 }

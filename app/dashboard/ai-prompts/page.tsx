@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { FileText, Zap, MessageSquare, Check, X, Code, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { Button, PageContainer, PageHeader, Card, Textarea, Tabs, TabList, Tab, TabPanels, TabPanel } from '@/components/ui';
+import { Button, Card, Textarea, Tabs, TabList, Tab, TabPanels, TabPanel } from '@/components/ui';
 import { usePersonaStore } from '@/lib/store/persona-store';
 import { createClient } from '@/lib/supabase/client';
 
@@ -249,13 +249,11 @@ export default function AIPromptsPage() {
   }, [analysisPrompt, replyPrompt, persona?.id, isLoading]);
 
   return (
-    <div className="p-6">
-      <PageContainer maxWidth="xl">
-        <PageHeader
-          title="AI Prompts"
-          description="Manage your Reddit analysis and reply generation prompts"
-          icon={FileText}
-        />
+    <div className="max-w-7xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">AI Prompts</h1>
+        <p className="text-gray-600 mt-1">Manage your Reddit analysis and reply generation prompts</p>
+      </div>
 
         <Tabs>
           <TabList>
@@ -417,7 +415,6 @@ export default function AIPromptsPage() {
             )}
           </TabPanels>
         </Tabs>
-      </PageContainer>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { LogIn } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { Button, Input, PageContainer, Card } from '@/components/ui';
+import { Button, Input, Card } from '@/components/ui';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -62,7 +62,7 @@ export default function LoginPage() {
   };
 
   return (
-    <PageContainer className="flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -117,7 +117,7 @@ export default function LoginPage() {
           </div>
         </Card>
       </motion.div>
-    </PageContainer>
+    </div>
   );
 }
 

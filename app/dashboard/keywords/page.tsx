@@ -7,7 +7,7 @@ import { Sparkles } from 'lucide-react';
 import { usePersonaStore } from '@/lib/store/persona-store';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { Button, PageContainer, PageHeader, Card, Badge } from '@/components/ui';
+import { Button, Card, Badge } from '@/components/ui';
 
 interface Keyword {
   id?: string;
@@ -70,13 +70,11 @@ export default function KeywordsPage() {
   };
 
   return (
-    <div className="p-6">
-      <PageContainer maxWidth="lg">
-        <PageHeader
-          title="Keywords"
-          description="AI-generated keyword library for your persona"
-          icon={Sparkles}
-        />
+    <div className="max-w-6xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Keywords</h1>
+        <p className="text-gray-600 mt-1">AI-generated keyword library for your persona</p>
+      </div>
 
         <Card>
           <div className="flex justify-between items-center mb-4">
@@ -117,7 +115,6 @@ export default function KeywordsPage() {
             )}
           </div>
         </Card>
-      </PageContainer>
     </div>
   );
 }

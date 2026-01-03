@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Zap, Search, Globe, Hash, Play, Loader2, CheckCircle, XCircle, ExternalLink, Check, X, SkipForward, MoreVertical } from 'lucide-react';
+import { Zap, Search, Globe, Hash, Play, Loader2, CheckCircle, XCircle, ExternalLink, Check, X, SkipForward, MoreVertical, Copy } from 'lucide-react';
 import { usePersonaStore } from '@/lib/store/persona-store';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { Button, PageContainer, PageHeader, Card, Select, Input, Badge } from '@/components/ui';
+import { Button, Card, Select, Input, Badge } from '@/components/ui';
 import { filterGenericSubreddits } from '@/lib/utils/filter-generic';
 
 interface PostResult {
@@ -514,14 +514,34 @@ export default function AutomatePage() {
     }
   }, [showPreviousThreads]);
 
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success('Copied to clipboard!');
+    } catch (error) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        toast.success('Copied to clipboard!');
+      } catch (err) {
+        toast.error('Failed to copy');
+      }
+      document.body.removeChild(textArea);
+    }
+  };
+
   return (
-    <div className="p-6">
-      <PageContainer maxWidth="2xl">
-        <PageHeader
-          title="Automate"
-          description="Automatically find and respond to relevant Reddit posts"
-          icon={Zap}
-        />
+    <div className="max-w-7xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Automate</h1>
+        <p className="text-gray-600 mt-1">Automatically find and respond to relevant Reddit posts</p>
+      </div>
 
         <div className="space-y-6">
           {/* Settings Card */}
@@ -793,10 +813,10 @@ export default function AutomatePage() {
 
                         return filtered.map((post) => (
                       <Card key={post.id} className="p-4">
-                        <div className="flex items-start justify-between mb-2">
+                        <div className="flex items-start justify-between mb-3">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-2">
-                              <h4 className="font-medium text-ms-neutralPrimary">{post.title}</h4>
+                              <h3 className="font-semibold text-ms-neutral text-lg">{post.title || 'Untitled Post'}</h3>
                               <Badge
                                 variant={
                                   post.threadState === 'done' 
@@ -818,8 +838,16 @@ export default function AutomatePage() {
                                   : 'Unknown'}
                               </Badge>
                             </div>
-                            <div className="flex items-center gap-4 text-xs text-ms-neutralTertiary mb-2">
-                              <span>r/{post.subreddit}</span>
+                            <div className="flex items-center gap-4 text-xs text-ms-neutralSecondary mb-3">
+                              <a
+                                href={post.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-ms-primary hover:text-ms-primaryHover hover:underline"
+                              >
+                                <span>r/{post.subreddit}</span>
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
                               {post.generatedResponse && (
                                 <>
                                   <span>•</span>
@@ -828,34 +856,34 @@ export default function AutomatePage() {
                               )}
                             </div>
                           </div>
-                          <a
-                            href={post.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="ml-4 text-ms-primary hover:underline flex items-center gap-1"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                            <span className="text-xs">View</span>
-                          </a>
                         </div>
 
-                        {/* Original Post Content */}
-                        <div className="mt-3 pt-3 border-t border-ms-border">
-                          <p className="text-xs font-medium text-ms-neutralSecondary mb-2">
-                            Original Post:
-                          </p>
-                          <p className="text-sm text-ms-neutralPrimary whitespace-pre-wrap mb-3">
-                            {post.content}
+                        {/* Post Content */}
+                        <div className="mb-4 p-3 bg-ms-backgroundHover rounded-ms">
+                          <p className="text-sm text-ms-neutral whitespace-pre-wrap">
+                            {post.content || 'No content'}
                           </p>
                         </div>
 
                         {/* Generated Response */}
-                        {post.generatedResponse && (
-                          <div className="mt-3 pt-3 border-t border-ms-border">
-                            <p className="text-xs font-medium text-ms-neutralSecondary mb-1">
-                              Generated Response:
+                        {post.responseGenerated && post.generatedResponse && (
+                          <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-ms relative">
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-ms-primary" />
+                                <h4 className="text-sm font-semibold text-ms-primary">Generated Response</h4>
+                              </div>
+                              <button
+                                onClick={() => copyToClipboard(post.generatedResponse || '')}
+                                className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
+                                title="Copy message"
+                              >
+                                <Copy className="w-4 h-4" />
+                              </button>
+                            </div>
+                            <p className="text-sm text-ms-neutral whitespace-pre-wrap">
+                              {post.generatedResponse}
                             </p>
-                            <p className="text-sm text-ms-neutralPrimary whitespace-pre-wrap">{post.generatedResponse}</p>
                           </div>
                         )}
 
@@ -919,7 +947,7 @@ export default function AutomatePage() {
                 </div>
               </div>
 
-              <div className="space-y-4 max-h-[calc(100vh-500px)] overflow-y-auto fluent-scroll">
+              <div className="space-y-4">
                 {visibleResults.map((post) => {
                   const isAboveThreshold = post.relevanceScore >= scoreThreshold;
                   return (
@@ -984,10 +1012,19 @@ export default function AutomatePage() {
 
                       {/* Generated Response */}
                       {post.responseGenerated && post.generatedResponse && (
-                        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-ms">
-                          <div className="flex items-center gap-2 mb-2">
-                            <CheckCircle className="w-4 h-4 text-ms-primary" />
-                            <h4 className="text-sm font-semibold text-ms-primary">Generated Response</h4>
+                        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-ms relative">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2">
+                              <CheckCircle className="w-4 h-4 text-ms-primary" />
+                              <h4 className="text-sm font-semibold text-ms-primary">Generated Response</h4>
+                            </div>
+                            <button
+                              onClick={() => copyToClipboard(post.generatedResponse || '')}
+                              className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
+                              title="Copy message"
+                            >
+                              <Copy className="w-4 h-4" />
+                            </button>
                           </div>
                           <p className="text-sm text-ms-neutral whitespace-pre-wrap">
                             {post.generatedResponse}
@@ -1084,7 +1121,6 @@ export default function AutomatePage() {
             </Card>
           )}
         </div>
-      </PageContainer>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { usePersonaStore } from '@/lib/store/persona-store';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { Button, Input, Textarea, Select, PageContainer, PageHeader, Card } from '@/components/ui';
+import { Button, Input, Textarea, Select, Card } from '@/components/ui';
 
 const PERSONA_ARCHETYPES = [
   { value: 'The Helpful Expert', label: 'The Helpful Expert', description: 'Knowledgeable and supportive' },
@@ -118,13 +118,11 @@ export default function PersonaPage() {
   };
 
   return (
-    <div className="p-6">
-      <PageContainer maxWidth="md">
-        <PageHeader
-          title="Persona Engine"
-          description="Create your digital brand twin"
-          icon={Sparkles}
-        />
+    <div className="max-w-4xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Persona Engine</h1>
+        <p className="text-gray-600 mt-1">Create your digital brand twin</p>
+      </div>
 
         <Card>
           {/* Step 1: Basic Info */}
@@ -385,7 +383,6 @@ export default function PersonaPage() {
             )}
           </div>
         </Card>
-      </PageContainer>
     </div>
   );
 }

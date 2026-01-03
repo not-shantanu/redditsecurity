@@ -6,7 +6,7 @@ import { Building2, Globe, Zap, FileText, Edit, RefreshCw } from 'lucide-react';
 import { usePersonaStore } from '@/lib/store/persona-store';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { Button, Input, PageContainer, PageHeader, Card, Badge, Textarea } from '@/components/ui';
+import { Button, Input, Card, Badge, Textarea } from '@/components/ui';
 
 interface BrandData {
   id?: string;
@@ -365,13 +365,11 @@ export default function BrandSetupPage() {
   };
 
   return (
-    <div className="p-6 bg-ms-neutralLighter">
-      <PageContainer maxWidth="2xl">
-        <PageHeader
-          title="Brand Analysis"
-          description="AI-powered analysis of your brand for intelligent Reddit marketing"
-          icon={Building2}
-        />
+    <div className="max-w-7xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Brand Analysis</h1>
+        <p className="text-gray-600 mt-1">AI-powered analysis of your brand for intelligent Reddit marketing</p>
+      </div>
 
         {/* Website Analysis */}
         <Card className="mb-6">
@@ -580,7 +578,6 @@ export default function BrandSetupPage() {
             </>
           )}
         </div>
-      </PageContainer>
     </div>
   );
 }

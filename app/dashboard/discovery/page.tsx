@@ -6,7 +6,7 @@ import { Search, Plus, Sparkles, Rocket, Trash2, Circle, Target } from 'lucide-r
 import { usePersonaStore } from '@/lib/store/persona-store';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { Button, Input, Select, PageContainer, PageHeader, Card, Badge, Grid } from '@/components/ui';
+import { Button, Input, Select, Card, Badge, Grid } from '@/components/ui';
 import { filterGenericKeywords, filterGenericSubreddits, isGenericKeyword, isGenericSubreddit } from '@/lib/utils/filter-generic';
 
 interface Keyword {
@@ -310,13 +310,11 @@ export default function DefineMarketPage() {
   };
 
   return (
-    <div className="p-6">
-      <PageContainer maxWidth="2xl">
-        <PageHeader
-          title="Define Market"
-          description="Configure your target keywords and discover relevant subreddits"
-          icon={Target}
-        />
+    <div className="max-w-7xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Define Market</h1>
+        <p className="text-gray-600 mt-1">Configure your target keywords and discover relevant subreddits</p>
+      </div>
 
         {/* Summary Cards */}
         <Grid cols={3} gap="lg" className="mb-6">
@@ -529,7 +527,6 @@ export default function DefineMarketPage() {
             </div>
           </Card>
         </Grid>
-      </PageContainer>
     </div>
   );
 }

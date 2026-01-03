@@ -65,3 +65,6 @@ coverage/
 # Misc
 *.pem
 *.key
+
+# Storage (crawler data)
+storage/
