@@ -1,0 +1,50 @@
+{
+  "requestsFinished": 0,
+  "requestsFailed": 1,
+  "requestsRetries": 1,
+  "requestsFailedPerMinute": 14,
+  "requestsFinishedPerMinute": 0,
+  "requestMinDurationMillis": null,
+  "requestMaxDurationMillis": 0,
+  "requestTotalFailedDurationMillis": 10,
+  "requestTotalFinishedDurationMillis": 0,
+  "crawlerStartedAt": "2026-01-02T11:26:48.667Z",
+  "crawlerFinishedAt": "2026-01-02T11:26:52.650Z",
+  "statsPersistedAt": "2026-01-02T11:26:52.650Z",
+  "crawlerRuntimeMillis": 4139,
+  "crawlerLastStartTimestamp": 1767353208511,
+  "requestRetryHistogram": [
+    null,
+    null,
+    null,
+    1
+  ],
+  "statsId": 0,
+  "requestAvgFailedDurationMillis": 10,
+  "requestAvgFinishedDurationMillis": null,
+  "requestTotalDurationMillis": 10,
+  "requestsTotal": 1,
+  "requestsWithStatusCode": {},
+  "errors": {
+    "rsc": {
+      "ENOENT": {
+        "Error": {
+          "ENOENT: no such file or directory, open 'D:\\Reddit copilot\\.next\\server\\vendor-chunks\\data_files\\headers-order.json'": {
+            "count": 1
+          }
+        }
+      }
+    }
+  },
+  "retryErrors": {
+    "rsc": {
+      "ENOENT": {
+        "Error": {
+          "ENOENT: no such file or directory, open 'D:\\Reddit copilot\\.next\\server\\vendor-chunks\\data_files\\headers-order.json'": {
+            "count": 3
+          }
+        }
+      }
+    }
+  }
+}

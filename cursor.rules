@@ -1,0 +1,2 @@
+Never use different components through out the product and import all from the common design system code 
+Dark mode is not allowed so use light mode only
